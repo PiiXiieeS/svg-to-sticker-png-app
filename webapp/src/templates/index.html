@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>SVGtoStickerPNG | @spencerlepine</title>
+      <link rel="stylesheet" type="text/css" href="/static/styles.css">
+  </head>
+      <header>
+        <h1>SVGtoStickerPNG</h1>
+        <p style="color: rgb(182, 182, 182); margin: auto 1em;">@spencerlepine</p>
+      </header>
+      
+      <main>
+        <div class="container">
+          <form method="post" enctype="multipart/form-data">
+            {{ data.form.csrf_token }}
+            <label for="file" class="file-drag-n-drop">
+              <span class="file-input-label">Select your SVG file</span>
+              <input type="file" id="file" name="file" accept=".svg" style="margin:auto;"/>
+            </label>
+            <input type="submit" value="Submit" id="form-submit-btn">
+          </form>
+
+          <img src="/static/svg2stickerpng.jpg" />
+        </div>
+        
+        <br />
+
+        <div id="completed-stickers-list">
+          <h2>Completed <button onclick="location.reload(true)">Refresh</button></h2>
+
+          <ul>
+            {% for job in data.jobs %}
+              <li>
+                <img class="output-img-thumbnail" src="{{ job.thumbnailJPGUrl }}" />
+                <div class="image-download"><span class="image-download-label">thumbnail.jpg</span> <button data-download-url="{{ job.thumbnailJPGUrl }}" class="image-download-btn">Download</button></div>
+                <div class="image-download"><span class="image-download-label">sticker.png</span> <button data-download-url="{{ job.stickerPNGUrl }}" class="image-download-btn">Download</button></div>
+                <div class="image-download"><span class="image-download-label">logo.png</span> <button data-download-url="{{ job.logoPNGUrl }}" class="image-download-btn">Download</button></div>
+                <div class="image-download"><span class="image-download-label">source-logo.png</span> <button data-download-url="{{ job.sourceLogoPNGUrl }}" class="image-download-btn">Download</button></div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </main>
+
+      <footer>
+        <p>Tasks in queue: {{data.queue_count}}</p>
+        <p>Completed tasks: {{data.completed}}</p>
+      </footer>
+
+      <script>
+        // TODO
+
+        // get all image-download-btn buttons
+        // add click event listener
+        // on click, parse data-download-url
+        // create link
+        // click the link to download the file!
+      </script>
+  </body>
+</html>
