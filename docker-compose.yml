@@ -1,0 +1,57 @@
+version: "3.91"
+
+services:
+  webapp:
+    build:
+      context: ./webapp/
+      dockerfile: Dockerfile
+    env_file:
+      - .env.local
+    command: ["python", "server.py"]
+    ports:
+      - 3000:3000
+    restart: always
+    hostname: webapp
+    depends_on:
+      - minio
+      - redis
+
+  worker:
+    build:
+      context: ./worker/
+      dockerfile: Dockerfile
+    env_file:
+      - .env.local  
+    command: python worker.py 
+    volumes: 
+      - type: bind
+        source: ./worker
+        target: /app     
+    depends_on:
+      - redis
+
+  redis:
+    hostname: redis    
+    image: redis:7.0.8-bullseye  
+    ports:
+      - 6379:6379
+
+  minio:
+    image: quay.io/minio/minio:RELEASE.2023-02-22T18-23-45Z
+    env_file:
+      - .env.local
+    command: server --console-address ":9090"
+    ports:
+      - 9000:9000
+      - 9090:9090
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    hostname: minio
+    volumes:
+      - minio-data:/mnt/data
+  
+volumes:
+  minio-data:
