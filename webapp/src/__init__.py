@@ -26,6 +26,7 @@ def landing_page():
             __upload_minio_object(image_folder_uuid, "source-logo.svg", file, size)
             __add_task_to_queue("tasks.process_image_task", json.dumps({ "image_folder_uuid": image_folder_uuid }))
             form = FileUploadForm()
+            form.file = FileField() # reset the form
             
     data = { "form": form, "queue_count": __sheduled_tasks_count(),"jobs": __formatted_finished_tasks(), "completed": len(__finished_tasks()) }
     return render_template("index.html", data=data)

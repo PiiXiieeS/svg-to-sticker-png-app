@@ -34,10 +34,10 @@
             {% for job in data.jobs %}
               <li>
                 <img class="output-img-thumbnail" src="{{ job.thumbnailJPGUrl }}" />
-                <div class="image-download"><span class="image-download-label">thumbnail.jpg</span> <button data-download-url="{{ job.thumbnailJPGUrl }}" class="image-download-btn">Download</button></div>
-                <div class="image-download"><span class="image-download-label">sticker.png</span> <button data-download-url="{{ job.stickerPNGUrl }}" class="image-download-btn">Download</button></div>
-                <div class="image-download"><span class="image-download-label">logo.png</span> <button data-download-url="{{ job.logoPNGUrl }}" class="image-download-btn">Download</button></div>
-                <div class="image-download"><span class="image-download-label">source-logo.png</span> <button data-download-url="{{ job.sourceLogoPNGUrl }}" class="image-download-btn">Download</button></div>
+                <div class="image-download"><span class="image-download-label">thumbnail.jpg</span> <a href="{{ job.thumbnailJPGUrl }}" class="image-download-btn" download="test.png"><img src="/static/download-icon.png" /></a></div>
+                <div class="image-download"><span class="image-download-label">sticker.png</span> <a href="{{ job.stickerPNGUrl }}" class="image-download-btn"><img src="/static/download-icon.png" /></a></div>
+                <div class="image-download"><span class="image-download-label">logo.png</span> <a href="{{ job.logoPNGUrl }}" class="image-download-btn"><img src="/static/download-icon.png" /></a></div>
+                <div class="image-download"><span class="image-download-label">source-logo.png</span> <a href="{{ job.sourceLogoPNGUrl }}" class="image-download-btn"><img src="/static/download-icon.png" /></a></div>
               </li>
             {% endfor %}
           </ul>
@@ -48,15 +48,5 @@
         <p>Tasks in queue: {{data.queue_count}}</p>
         <p>Completed tasks: {{data.completed}}</p>
       </footer>
-
-      <script>
-        // TODO
-
-        // get all image-download-btn buttons
-        // add click event listener
-        // on click, parse data-download-url
-        // create link
-        // click the link to download the file!
-      </script>
   </body>
 </html>

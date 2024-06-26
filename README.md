@@ -11,6 +11,7 @@ Webapp for converting SVG logos to sticker PNG files. Processing images with the
 ## Prerequisites
 
 - Docker installed ([documentation](https://docs.docker.com/get-docker/))
+- Make the Minio bucket `PUBLIC` (http://localhost:9000)
 
 ## Run Locally
 
